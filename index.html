@@ -7,7 +7,7 @@
   <meta name="description" content="Vester is an easy-to-use Node.js framework for creating and running your own algorithmic trading systems.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/vester/styles/styles.css">
-</head>
+<link rel="stylesheet" href="/vester/css/prism.css" type="text/css"></head>
 <body>
 
 <header class="navbar navbar-top">
@@ -102,6 +102,28 @@
         </ul>
       </li>
     
+      <li class="nav-item">
+        <span class="nav-heading">Guides</span>
+        <ul class="nav">
+          
+            <li class="nav-item">
+              <a class="" href="/vester/guides/build-a-moving-averages-algorithm">Build a Moving Averages Algorithm</a>
+              
+            </li>
+          
+            <li class="nav-item">
+              <a class="" href="/vester/guides/build-a-cryptocurrency-trader">Build a Cryptocurrency Trader</a>
+              
+            </li>
+          
+            <li class="nav-item">
+              <a class="" href="/vester/guides/build-a-steam-market-bot">Build a Steam Market Bot</a>
+              
+            </li>
+          
+        </ul>
+      </li>
+    
   </ul>
 </aside>
 
@@ -109,15 +131,69 @@
 <main class="main">
   <div class="content">
     <div class="container">
-      <h1 id="Algorithmic-Trading-for-Everyone"><a href="#Algorithmic-Trading-for-Everyone" class="headerlink" title="Algorithmic Trading for Everyone"></a>Algorithmic Trading for Everyone</h1><p>Vester is a high-level Node.js framework for creating and running your own algorithmic trading systems. It is inspired by the <a href="https://martinfowler.com/articles/lmax.html" target="_blank" rel="external">LMAX architecture</a> and built using <a href="http://redux.js.org/" target="_blank" rel="external">Redux</a> and some custom middleware.</p>
-<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><div class="columns"><br>  <div class="column col-6"><br>    <div class="tile tile-card tile-centered"><br>      <div class="tile-icon"><br>        <i class="icon icon-corner-left-down"></i><br>      </div><br>      <div class="tile-content"><br>        <div class="tile-title">One-Way Data Flow</div><br>        <p class="tile-subtitle">The code is straight-forward and easily understood.</p><br>      </div><br>    </div><br>    <div class="tile tile-card tile-centered"><br>      <div class="tile-icon"><br>        <i class="icon icon-menu"></i><br>      </div><br>      <div class="tile-content"><br>        <div class="tile-title">Multiple Order Types</div><br>        <p class="tile-subtitle">The code is straight-forward and easily understood.</p><br>      </div><br>    </div><br>    <div class="tile tile-card tile-centered"><br>      <div class="tile-icon"><br>        <i class="icon icon-slack"></i><br>      </div><br>      <div class="tile-content"><br>        <div class="tile-title">Slack Notifications</div><br>        <p class="tile-subtitle">The code is straight-forward and easily understood.</p><br>      </div><br>    </div><br>  </div><br>  <div class="column col-6"><br>    <div class="tile tile-card tile-centered"><br>      <div class="tile-icon"><br>        <i class="icon icon-bar-chart-2"></i><br>      </div><br>      <div class="tile-content"><br>        <div class="tile-title">Backtesting Metrics</div><br>        <p class="tile-subtitle">The code is straight-forward and easily understood.</p><br>      </div><br>    </div><br>    <div class="tile tile-card tile-centered"><br>      <div class="tile-icon"><br>        <i class="icon icon-file"></i><br>      </div><br>      <div class="tile-content"><br>        <div class="tile-title">CSV Parsing</div><br>        <p class="tile-subtitle">The code is straight-forward and easily understood.</p><br>      </div><br>    </div><br>    <div class="tile tile-card tile-centered"><br>      <div class="tile-icon"><br>        <i class="icon icon-clock"></i><br>      </div><br>      <div class="tile-content"><br>        <div class="tile-title">Advanced Scheduling</div><br>        <p class="tile-subtitle">The code is straight-forward and easily understood.</p><br>      </div><br>    </div><br>  </div><br></div>
+      <h1 id="Algorithmic-Trading-for-the-rest-of-us"><a href="#Algorithmic-Trading-for-the-rest-of-us" class="headerlink" title="Algorithmic Trading for the rest of us."></a>Algorithmic Trading for the rest of us.</h1><p class="lead">
+  Vester is an easy-to-use framework for developing and running your own algorithmic trading systems. It is built on <a href="http://redux.js.org/" target="_blank" rel="external">Redux</a> and inspired by <a href="https://martinfowler.com/articles/lmax.html" target="_blank" rel="external">LMAX</a>.
+</p>
+
+
+<div class="columns frontpage-tiles">
+  <div class="column col-6">
+    <div class="tile tile-card tile-centered">
+      <div class="tile-icon"><i class="icon icon-corner-left-down"></i></div>
+      <div class="tile-content">
+        <div class="tile-title">One-Way Data Flow</div>
+        <p class="tile-subtitle">Algorithms are straight forward, easy to understand, and just as easy to debug.</p>
+      </div>
+    </div>
+    <div class="tile tile-card tile-centered">
+      <div class="tile-icon"><i class="icon icon-slack"></i></div>
+      <div class="tile-content">
+        <div class="tile-title">Slack Notifications</div>
+        <p class="tile-subtitle">Don’t let your gains come unnoticed. Simply add your Slack API endpoint and Vester will notify you whenever a new event occurs.</p>
+      </div>
+    </div>
+    <div class="tile tile-card tile-centered">
+      <div class="tile-icon"><i class="icon icon-menu"></i></div>
+      <div class="tile-content">
+        <div class="tile-title">Multiple Order Types</div>
+        <p class="tile-subtitle">Be it limit orders, market orders or percentage orders, Vester makes order execution a breeze.</p>
+      </div>
+    </div>
+  </div>
+  <div class="column col-6">
+    <div class="tile tile-card tile-centered">
+      <div class="tile-icon"><i class="icon icon-file"></i></div>
+      <div class="tile-content">
+        <div class="tile-title">CSV Parsing</div>
+        <p class="tile-subtitle">Import data from your favourite source and parse it directly with Vester’s CSV utilities.</p>
+      </div>
+    </div>
+    <div class="tile tile-card tile-centered">
+      <div class="tile-icon"><i class="icon icon-bar-chart-2"></i></div>
+      <div class="tile-content">
+        <div class="tile-title">Backtesting Metrics</div>
+        <p class="tile-subtitle">Behind any successful algorithm lies thorough backtesting. With Vester’s built-in metrics, backtesting becomes as fun as it should be.</p>
+      </div>
+    </div>
+    <div class="tile tile-card tile-centered">
+      <div class="tile-icon"><i class="icon icon-users"></i></div>
+      <div class="tile-content">
+        <div class="tile-title">Flourishing Community</div>
+        <p class="tile-subtitle">Get the most out of your algorithmic trading by sharing your tips and ideas with others.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="text-center">
+  <a href="prologue/quickstart" class="btn btn-primary btn-lg frontpage-button">Get Started</a>
+</div>
 
       
     </div>
   </div>
 </main>
 
-<script src="/vester/scripts/prism.js"></script>
 <script src="/vester/scripts/scripts.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-102620419-1"></script>
 <script>
