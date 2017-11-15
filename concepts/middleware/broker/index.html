@@ -51,17 +51,17 @@
         <ul class="nav">
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/buffer">Buffer</a>
-              
-            </li>
-          
-            <li class="nav-item">
               <a class="" href="/vester/concepts/feeds">Feeds</a>
               
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/middleware">Middleware</a>
+              <a class="" href="/vester/concepts/buffer">Buffer</a>
+              
+            </li>
+          
+            <li class="nav-item">
+              <a class="active" href="/vester/concepts/middleware">Middleware</a>
               
                 <ul class="nav">
                   
@@ -131,7 +131,33 @@
 <main class="main">
   <div class="content">
     <div class="container">
-      <h1 id="Broker"><a href="#Broker" class="headerlink" title="Broker"></a>Broker</h1>
+      <h1 id="Broker"><a href="#Broker" class="headerlink" title="Broker"></a>Broker</h1><p>The Broker middleware will build orders upon request, and asynchronously execute them <strong>in a later cycle</strong>. There are two kinds of Broker middleware: one for backtesting and one for realtime trading.</p>
+<h2 id="Backtesting-Broker"><a href="#Backtesting-Broker" class="headerlink" title="Backtesting Broker"></a>Backtesting Broker</h2><p>The Backtesting Broker middleware will dispatch both <code>ORDER_PLACED</code> and <code>ORDER_FILLED</code> events synchronously (see <a href="/vester/prologue/api">API Reference</a> for a full list of events).</p>
+<p>It is important to note that in a backtesting environment, if your strategy wants to place multiple orders upon receiving a single event, we want to both place and fill these orders <strong>before</strong> next event is dispatched.</p>
+<p>The commission calculations can be customized by defining the <code>backtest.commission</code> in your configuration.</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token operator">...</span><span class="token punctuation">,</span>
+  backtest<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    commission<span class="token punctuation">:</span> <span class="token punctuation">(</span>order<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Setting the <code>backtest.commission</code> property to a number is also perfectly fine.</p>
+<h2 id="Realtime-Broker"><a href="#Realtime-Broker" class="headerlink" title="Realtime Broker"></a>Realtime Broker</h2><p>In contrast to the backtest broker middleware, the Realtime Broker middleware will dispatch <code>ORDER_PLACED</code> and <code>ORDER_FILLED</code> events asynchronously. This allows the system to continue working on new events while waiting for responses from the brokerage. It takes a <code>createClient</code> function as an argument (see below for how to specify this in your configuration) which makes developing your own custom broker clients a breeze.</p>
+<p>Vester thinks of the broker client as a black box, and so it only requires you to tell when an order has been filled. The rest is completely up to you.</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token operator">...</span><span class="token punctuation">,</span>
+  client<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> onFill <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+    executeOrder<span class="token punctuation">:</span> <span class="token keyword">async</span> <span class="token punctuation">(</span>order<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    cancelOrder<span class="token punctuation">:</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> id <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    getMarketPrice<span class="token punctuation">:</span> <span class="token keyword">async</span> <span class="token punctuation">(</span>identifier<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    calculateCommission<span class="token punctuation">:</span> <span class="token punctuation">(</span>order<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+
       
         <footer class="navbar navbar-content">
           <section class="navbar-center">

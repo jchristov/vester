@@ -51,17 +51,17 @@
         <ul class="nav">
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/buffer">Buffer</a>
-              
-            </li>
-          
-            <li class="nav-item">
               <a class="" href="/vester/concepts/feeds">Feeds</a>
               
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/middleware">Middleware</a>
+              <a class="" href="/vester/concepts/buffer">Buffer</a>
+              
+            </li>
+          
+            <li class="nav-item">
+              <a class="active" href="/vester/concepts/middleware">Middleware</a>
               
                 <ul class="nav">
                   
@@ -131,7 +131,15 @@
 <main class="main">
   <div class="content">
     <div class="container">
-      <h1 id="Journaler"><a href="#Journaler" class="headerlink" title="Journaler"></a>Journaler</h1>
+      <h1 id="Journaler"><a href="#Journaler" class="headerlink" title="Journaler"></a>Journaler</h1><p>The Journaler middleware writes each event to a persistent storage. This makes it possible to simply replay all events so to end up in the same state as it was just before the crash.</p>
+<p>By default the journal file is stored as <code>journal.json</code> in the working directory, but you can change this by setting the <code>journal</code> property in your configuration.</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token operator">...</span><span class="token punctuation">,</span>
+  journal<span class="token punctuation">:</span> <span class="token string">'/var/log/journal.json'</span><span class="token punctuation">,</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+
       
         <footer class="navbar navbar-content">
           <section class="navbar-center">

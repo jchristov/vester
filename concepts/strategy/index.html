@@ -51,12 +51,12 @@
         <ul class="nav">
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/buffer">Buffer</a>
+              <a class="" href="/vester/concepts/feeds">Feeds</a>
               
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/feeds">Feeds</a>
+              <a class="" href="/vester/concepts/buffer">Buffer</a>
               
             </li>
           
@@ -95,7 +95,7 @@
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/strategy">Strategy</a>
+              <a class="active" href="/vester/concepts/strategy">Strategy</a>
               
             </li>
           
@@ -131,7 +131,13 @@
 <main class="main">
   <div class="content">
     <div class="container">
-      <h1 id="Strategy"><a href="#Strategy" class="headerlink" title="Strategy"></a>Strategy</h1>
+      <h1 id="Strategy"><a href="#Strategy" class="headerlink" title="Strategy"></a>Strategy</h1><p>As described in the <a href="/vester/concepts/feeds">Feed chapter</a>, strategies are simple functions that
+react to events. the Strategy function is called with two arguments: <code>context</code> and <code>event</code>.</p>
+<h2 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h2><h3 id="State"><a href="#State" class="headerlink" title="State"></a>State</h3><p>The current state of your portfolio can be accessed at <code>context.state</code>.</p>
+<h3 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h3><p>Your portfolio risk metrics can be found at <code>context.metrics</code>.</p>
+<h3 id="Order-and-Cancel"><a href="#Order-and-Cancel" class="headerlink" title="Order and Cancel"></a>Order and Cancel</h3><p>Call <code>order</code> to place and order, or <code>cancel</code> to cancel an order. The <code>order</code> function expects an object containing an <code>identifier</code>, a <code>quantity</code> and (optionally) a <code>price</code>. The <code>cancel</code> function expects a string denoting the ID of the order which to cancel.</p>
+<h2 id="Event"><a href="#Event" class="headerlink" title="Event"></a>Event</h2><p>The event object consists of two properties: <code>type</code> and <code>payload</code>. See <a href="/vester/prologue/api">API References</a> for a full list of event types.</p>
+
       
     </div>
   </div>

@@ -51,12 +51,12 @@
         <ul class="nav">
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/buffer">Buffer</a>
+              <a class="" href="/vester/concepts/feeds">Feeds</a>
               
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/feeds">Feeds</a>
+              <a class="" href="/vester/concepts/buffer">Buffer</a>
               
             </li>
           
@@ -90,7 +90,7 @@
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/store">Store</a>
+              <a class="active" href="/vester/concepts/store">Store</a>
               
             </li>
           
@@ -131,7 +131,9 @@
 <main class="main">
   <div class="content">
     <div class="container">
-      <h1 id="Store"><a href="#Store" class="headerlink" title="Store"></a>Store</h1>
+      <h1 id="Store"><a href="#Store" class="headerlink" title="Store"></a>Store</h1><p>The Store module holds the current state of the portfolio, as well as pending orders. The underlying implementation is an <a href="https://redux.js.org/docs/recipes/UsingImmutableJS.html" target="_blank" rel="external">Immutable.JS Redux Store</a>, but you can think of it as a regular javascript object.</p>
+<p>It consists of three reducers: <code>capitalReducer</code>, <code>positionsReducer</code> and <code>ordersReducer</code>. The first two are respectively keeping track of capital and positions, while the latter keeps track of orders.</p>
+
       
         <footer class="navbar navbar-content">
           <section class="navbar-center">

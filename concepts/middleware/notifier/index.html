@@ -51,17 +51,17 @@
         <ul class="nav">
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/buffer">Buffer</a>
-              
-            </li>
-          
-            <li class="nav-item">
               <a class="" href="/vester/concepts/feeds">Feeds</a>
               
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/middleware">Middleware</a>
+              <a class="" href="/vester/concepts/buffer">Buffer</a>
+              
+            </li>
+          
+            <li class="nav-item">
+              <a class="active" href="/vester/concepts/middleware">Middleware</a>
               
                 <ul class="nav">
                   
@@ -131,7 +131,21 @@
 <main class="main">
   <div class="content">
     <div class="container">
-      <h1 id="Notifier"><a href="#Notifier" class="headerlink" title="Notifier"></a>Notifier</h1>
+      <h1 id="Notifier"><a href="#Notifier" class="headerlink" title="Notifier"></a>Notifier</h1><h2 id="Setup-Slack-Notifications"><a href="#Setup-Slack-Notifications" class="headerlink" title="Setup Slack Notifications"></a>Setup Slack Notifications</h2><ol>
+<li>Visit <code>https://&lt;YOUR-WORKSPACE&gt;.slack.com/apps/manage</code></li>
+<li>Search for “Incoming Webhooks”</li>
+<li>Click the “Add Configuration” button</li>
+<li>Copy the Webhook URL</li>
+<li>Paste it into your Vester configuration as below:</li>
+</ol>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token operator">...</span><span class="token punctuation">,</span>
+  slackUrl<span class="token punctuation">:</span> <span class="token string">'&lt;YOUR-WEBHOOK-URL>'</span><span class="token punctuation">,</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>The Notifier middleware will then send a Slack notification each time an event passes through it.</p>
+
       
         <footer class="navbar navbar-content">
           <section class="navbar-center">

@@ -39,7 +39,7 @@
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/prologue/api">API Reference</a>
+              <a class="active" href="/vester/prologue/api">API Reference</a>
               
             </li>
           
@@ -51,12 +51,12 @@
         <ul class="nav">
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/buffer">Buffer</a>
+              <a class="" href="/vester/concepts/feeds">Feeds</a>
               
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/feeds">Feeds</a>
+              <a class="" href="/vester/concepts/buffer">Buffer</a>
               
             </li>
           
@@ -131,7 +131,9 @@
 <main class="main">
   <div class="content">
     <div class="container">
-      <h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><h2 id="applyMiddlewareBuffered"><a href="#applyMiddlewareBuffered" class="headerlink" title="applyMiddlewareBuffered"></a>applyMiddlewareBuffered</h2><p>Creates a store enhancer that applies middleware to the dispatch method<br>of the Redux store, and buffers actions until all middlewares are finished processing<br>the action. This should be the first store enhancer in the composition chain.</p>
+      <h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><h2 id="applyMiddlewareBuffered"><a href="#applyMiddlewareBuffered" class="headerlink" title="applyMiddlewareBuffered"></a>applyMiddlewareBuffered</h2><p>Creates a store enhancer that applies middleware to the dispatch method
+of the Redux store, and buffers actions until all middlewares are finished processing
+the action. This should be the first store enhancer in the composition chain.</p>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>buffer</code>   (optional, default <code>[]</code>)</li>
@@ -143,20 +145,27 @@
 <ul>
 <li><code>config</code> <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank" rel="external">object</a></strong> The Vester configuration. (optional, default <code>{}</code>)</li>
 </ul>
-<h2 id="createBrokerBacktest"><a href="#createBrokerBacktest" class="headerlink" title="createBrokerBacktest"></a>createBrokerBacktest</h2><p>Creates a broker middleware to be used when running backtests.<br>In contrast to the realtime broker middleware, this middleware both places and fills an order<br>in one cycle. This makes it possible to simulate what would happen if we always were able to<br>perform our transactions at the historical date and time.</p>
+<h2 id="createBrokerBacktest"><a href="#createBrokerBacktest" class="headerlink" title="createBrokerBacktest"></a>createBrokerBacktest</h2><p>Creates a broker middleware to be used when running backtests.
+In contrast to the realtime broker middleware, this middleware both places and fills an order
+in one cycle. This makes it possible to simulate what would happen if we always were able to
+perform our transactions at the historical date and time.</p>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>commission</code> <strong>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" target="_blank" rel="external">number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a>)</strong> Calculate the commission based on price and quantity (optional, default <code>0</code>)</li>
 </ul>
 <p>Returns <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a></strong> Middleware</p>
-<h2 id="createBrokerRealtime"><a href="#createBrokerRealtime" class="headerlink" title="createBrokerRealtime"></a>createBrokerRealtime</h2><p>Creates a broker middleware to be used running backtests.<br>In contrast to the backtest broker middleware, this middleware builds an order, then dispatches<br>the built order for the next round-trip. When the built order arrives back at this middleware,<br>it is executed synchronously.</p>
+<h2 id="createBrokerRealtime"><a href="#createBrokerRealtime" class="headerlink" title="createBrokerRealtime"></a>createBrokerRealtime</h2><p>Creates a broker middleware to be used running backtests.
+In contrast to the backtest broker middleware, this middleware builds an order, then dispatches
+the built order for the next round-trip. When the built order arrives back at this middleware,
+it is executed synchronously.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>createClient</code> <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a></strong> Factory function for building the client to be used when sending<pre><code>requests to an _actual_ broker.
+<li><code>createClient</code> <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a></strong> Factory function for building the client to be used when sending<pre><code>                            requests to an _actual_ broker.
 </code></pre></li>
 </ul>
 <p>Returns <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a></strong> Middleware</p>
-<h2 id="createRiskManager"><a href="#createRiskManager" class="headerlink" title="createRiskManager"></a>createRiskManager</h2><p>The risk manager middleware has the capability to alter orders or even prevent them from being<br>requested in the first place. It should also warn the user when some risk metric is out of bounds.</p>
+<h2 id="createRiskManager"><a href="#createRiskManager" class="headerlink" title="createRiskManager"></a>createRiskManager</h2><p>The risk manager middleware has the capability to alter orders or even prevent them from being
+requested in the first place. It should also warn the user when some risk metric is out of bounds.</p>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>settings</code> <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank" rel="external">object</a></strong> A settings object.</li>
