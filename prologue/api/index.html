@@ -122,47 +122,62 @@
 <main class="main">
   <div class="content">
     <div class="container">
-      <h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><h2 id="applyMiddlewareBuffered"><a href="#applyMiddlewareBuffered" class="headerlink" title="applyMiddlewareBuffered"></a>applyMiddlewareBuffered</h2><p>Creates a store enhancer that applies middleware to the dispatch method
-of the Redux store, and buffers actions until all middlewares are finished processing
-the action. This should be the first store enhancer in the composition chain.</p>
+      <h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><h3 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h3><ul>
+<li><a href="#run">run</a></li>
+<li><a href="#strategy">strategy</a></li>
+</ul>
+<h2 id="run"><a href="#run" class="headerlink" title="run"></a>run</h2><p>The entry point to the whole system.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>buffer</code>   (optional, default <code>[]</code>)</li>
-<li><code>middlewares</code> <strong>…<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a></strong> The chain of middlewares to be applied. (optional, default <code>[]</code>)</li>
+<li><code>config</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank" rel="external">Object</a></strong> The Vester configuration.<ul>
+<li><code>config.journal</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank" rel="external">string</a></strong> </li>
+<li><code>config.backtesting</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean" target="_blank" rel="external">boolean</a></strong> </li>
+<li><code>config.slackUrl</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank" rel="external">string</a></strong> </li>
+<li><code>config.initialStates</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank" rel="external">Object</a></strong> </li>
+<li><code>config.feeds</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank" rel="external">Object</a></strong> </li>
+<li><code>config.backtest</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank" rel="external">Object</a></strong> <ul>
+<li><code>config.backtest.timestamp</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank" rel="external">string</a></strong> </li>
 </ul>
-<p>Returns <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a></strong> A store enhancer applying the middleware.</p>
-<h2 id="index"><a href="#index" class="headerlink" title="index"></a>index</h2><p>The entry point to the whole system.</p>
+</li>
+<li><code>config.commission</code> <strong>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number" target="_blank" rel="external">number</a>)</strong> </li>
+<li><code>config.guard</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank" rel="external">Object</a></strong> <ul>
+<li><code>config.guard.shorting</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean" target="_blank" rel="external">boolean</a></strong> </li>
+<li><code>config.guard.margin</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean" target="_blank" rel="external">boolean</a></strong> </li>
+<li><code>config.guard.restricted</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array" target="_blank" rel="external">Array</a></strong> </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Examples</strong></p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">import</span> run <span class="token keyword">from</span> <span class="token string">'vester'</span>
+
+<span class="token keyword">function</span> <span class="token function">strategy</span><span class="token punctuation">(</span><span class="token punctuation">{</span> order <span class="token punctuation">}</span><span class="token punctuation">,</span> action<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">order</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    identifier<span class="token punctuation">:</span> <span class="token string">'AAPL'</span><span class="token punctuation">,</span>
+    quantity<span class="token punctuation">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+    price<span class="token punctuation">:</span> <span class="token number">150</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  strategy<span class="token punctuation">,</span>
+  backtesting<span class="token punctuation">:</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Returns <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="external">Promise</a></strong> </p>
+<h2 id="strategy"><a href="#strategy" class="headerlink" title="strategy"></a>strategy</h2><p>The strategy function is defined by the user (you), and it is called every time a new event occurs.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>config</code> <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank" rel="external">object</a></strong> The Vester configuration. (optional, default <code>{}</code>)</li>
+<li><code>context</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank" rel="external">Object</a></strong> <ul>
+<li><code>context.state</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a></strong> The state of your strategy.</li>
+<li><code>context.metrics</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a></strong> Some standard metrics for your strategy. Note that calls to this
+function is very expensive, so use with caution.</li>
+<li><code>context.order</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a></strong> Place an order.</li>
+<li><code>context.cancel</code> <strong><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a></strong> Cancel an order.</li>
 </ul>
-<h2 id="createBrokerBacktest"><a href="#createBrokerBacktest" class="headerlink" title="createBrokerBacktest"></a>createBrokerBacktest</h2><p>Creates a broker middleware to be used when running backtests.
-In contrast to the realtime broker middleware, this middleware both places and fills an order
-in one cycle. This makes it possible to simulate what would happen if we always were able to
-perform our transactions at the historical date and time.</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li><code>commission</code> <strong>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" target="_blank" rel="external">number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a>)</strong> Calculate the commission based on price and quantity (optional, default <code>0</code>)</li>
+</li>
 </ul>
-<p>Returns <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a></strong> Middleware</p>
-<h2 id="createBrokerRealtime"><a href="#createBrokerRealtime" class="headerlink" title="createBrokerRealtime"></a>createBrokerRealtime</h2><p>Creates a broker middleware to be used running backtests.
-In contrast to the backtest broker middleware, this middleware builds an order, then dispatches
-the built order for the next round-trip. When the built order arrives back at this middleware,
-it is executed synchronously.</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li><code>createClient</code> <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a></strong> Factory function for building the client to be used when sending<pre><code>                            requests to an _actual_ broker.
-</code></pre></li>
-</ul>
-<p>Returns <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a></strong> Middleware</p>
-<h2 id="createRiskManager"><a href="#createRiskManager" class="headerlink" title="createRiskManager"></a>createRiskManager</h2><p>The risk manager middleware has the capability to alter orders or even prevent them from being
-requested in the first place. It should also warn the user when some risk metric is out of bounds.</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li><code>settings</code> <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank" rel="external">object</a></strong> A settings object.</li>
-<li><code>getMetrics</code>  </li>
-</ul>
-<p>Returns <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function" target="_blank" rel="external">function</a></strong> Middleware</p>
 
       
     </div>
