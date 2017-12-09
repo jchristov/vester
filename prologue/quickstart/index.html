@@ -122,7 +122,41 @@
 <main class="main">
   <div class="content">
     <div class="container">
-      <h1 id="Quickstart"><a href="#Quickstart" class="headerlink" title="Quickstart"></a>Quickstart</h1>
+      <h1 id="Quickstart"><a href="#Quickstart" class="headerlink" title="Quickstart"></a>Quickstart</h1><p>We can visualize Vester as a vintage <a href="https://www.google.com/search?tbm=isch&amp;ei=1N8rWuuJItH7kwWy0oPADw&amp;btnG=S%C3%B6k&amp;q=reel+to+reel+tape+recorder" target="_blank" rel="external">reel-to-reel tape recorder</a>. The left reel contains events, the recorder is our strategy, and the right reel contains all of the trading orders that our strategy comes up with. Below we’ll see how Vester can help us in implementing these trading strategies.</p>
+<h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><p>If Vester is not yet installed, we should start off by doing that.</p>
+<pre class=" language-javascript"><code class="language-javascript">npm install vester
+</code></pre>
+<p>Now, create a new file called <code>index.js</code>, and open up any editor of choice to start exploring Vester.</p>
+<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><p>Now, let’s assume we have gotten our hands on some magic sequence of numbers which potentially contains information on how to buy and sell Microsoft shares (<a href="https://finance.google.com/finance?q=NASDAQ:MSFT" target="_blank" rel="external">MSFT</a>) for maximum profit.</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">const</span> numbers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
+</code></pre>
+<p>More specifically we’re suspecting that <strong>if a number is larger than the previous number</strong>, then the price has an upwards momentum, and the price is likely to increase in the near future. We’re also suspecting the reverse: <strong>if a number is not larger than the previous number</strong>, then the price of the stock is probably to be trending downwards very soon.</p>
+<p>Having a somewhat concrete idea of what we want to do, we start implementing our strategy.</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">/* most recent number */</span>
+<span class="token keyword">let</span> previous <span class="token operator">=</span> <span class="token keyword">null</span>
+
+<span class="token comment" spellcheck="true">/* have we bought the stock? */</span>
+<span class="token keyword">let</span> entered <span class="token operator">=</span> <span class="token boolean">false</span>
+
+<span class="token keyword">function</span> <span class="token function">momentumStrategy</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>payload <span class="token operator">></span> previous<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>entered<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      context<span class="token punctuation">.</span><span class="token function">order</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        identifier<span class="token punctuation">:</span> <span class="token string">'MSFT'</span><span class="token punctuation">,</span>
+        quantity<span class="token punctuation">:</span> <span class="token number">100</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>entered<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      context<span class="token punctuation">.</span><span class="token function">order</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        identifier<span class="token punctuation">:</span> <span class="token string">'MSFT'</span><span class="token punctuation">,</span>
+        quantity<span class="token punctuation">:</span> <span class="token operator">-</span><span class="token number">100</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
       
     </div>
   </div>

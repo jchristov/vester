@@ -3534,17 +3534,15 @@ body {
 
 @keyframes fade-in {
   0% {
-    opacity: 0;
-    transform: translateY(0.4rem); }
+    opacity: 0; }
   100% {
-    opacity: 1;
-    transform: translateY(0rem); } }
+    opacity: 1; } }
 
 .content {
   margin: 0 auto;
   max-width: 80rem;
   padding: 3.2rem 3.2rem;
-  animation: fade-in .5s;
+  animation: fade-in .25s;
   position: relative; }
 
 .content h2[id] {
