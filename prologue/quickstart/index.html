@@ -126,36 +126,117 @@
 <h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><p>If Vester is not yet installed, we should start off by doing that.</p>
 <pre class=" language-javascript"><code class="language-javascript">npm install vester
 </code></pre>
-<p>Now, create a new file called <code>index.js</code>, and open up any editor of choice to start exploring Vester.</p>
-<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><p>Now, let’s assume we have gotten our hands on some magic sequence of numbers which potentially contains information on how to buy and sell Microsoft shares (<a href="https://finance.google.com/finance?q=NASDAQ:MSFT" target="_blank" rel="external">MSFT</a>) for maximum profit.</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">const</span> numbers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
+<p>Next, create a file named <code>index.js</code> and start editing. At the top of the file we import the <code>run</code> function from Vester, like so:</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">import</span> run <span class="token keyword">from</span> <span class="token string">'vester'</span>
 </code></pre>
-<p>More specifically we’re suspecting that <strong>if a number is larger than the previous number</strong>, then the price has an upwards momentum, and the price is likely to increase in the near future. We’re also suspecting the reverse: <strong>if a number is not larger than the previous number</strong>, then the price of the stock is probably to be trending downwards very soon.</p>
-<p>Having a somewhat concrete idea of what we want to do, we start implementing our strategy.</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">/* most recent number */</span>
-<span class="token keyword">let</span> previous <span class="token operator">=</span> <span class="token keyword">null</span>
+<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>Just as we’re about to quit our year-long scavenge for the ultimate trading strategy, one member of the team finds an old dusty PDF written in a language we cannot fully understand.</p>
+<p>According to the author, the document contains clear instructions on how to buy and sell Microsoft shares (<a href="https://finance.google.com/finance?q=NASDAQ:MSFT" target="_blank" rel="external">MSFT</a>) for guaranteed profits.</p>
+<p>Auspiciously, we’re very good friends with a translator who interprets the formula for us, and so we instantly get on <a href="https://finance.google.com/finance?q=NASDAQ:MSFT" target="_blank" rel="external">Google Finance</a> to collect the prices and timestamps for the last few days.</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">const</span> prices <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">{</span> timestamp<span class="token punctuation">:</span> <span class="token number">946684800</span><span class="token punctuation">,</span> price<span class="token punctuation">:</span> <span class="token number">10</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> timestamp<span class="token punctuation">:</span> <span class="token number">946771200</span><span class="token punctuation">,</span> price<span class="token punctuation">:</span> <span class="token number">9</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> timestamp<span class="token punctuation">:</span> <span class="token number">946857600</span><span class="token punctuation">,</span> price<span class="token punctuation">:</span> <span class="token number">10</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> timestamp<span class="token punctuation">:</span> <span class="token number">946944000</span><span class="token punctuation">,</span> price<span class="token punctuation">:</span> <span class="token number">8</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> timestamp<span class="token punctuation">:</span> <span class="token number">947030400</span><span class="token punctuation">,</span> price<span class="token punctuation">:</span> <span class="token number">7</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> timestamp<span class="token punctuation">:</span> <span class="token number">947116800</span><span class="token punctuation">,</span> price<span class="token punctuation">:</span> <span class="token number">10</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> timestamp<span class="token punctuation">:</span> <span class="token number">947203200</span><span class="token punctuation">,</span> price<span class="token punctuation">:</span> <span class="token number">9</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<p>Our translator friend explains that <strong>if a price is higher than the previous price</strong>, then the stock has an upwards momentum, and we can expect further increases in the near future. It also describes the reverse: <strong>if a price is not higher than the previous price</strong>, then the stock is probably to be trending downwards very soon.</p>
+<p>We now have a somewhat concrete idea of how the strategy might look, and it’s about time we got our hands dirty. Below is the implemented strategy.</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">/* previous price */</span>
+<span class="token keyword">let</span> previous <span class="token operator">=</span> <span class="token number">Infinity</span>
 
 <span class="token comment" spellcheck="true">/* have we bought the stock? */</span>
 <span class="token keyword">let</span> entered <span class="token operator">=</span> <span class="token boolean">false</span>
 
-<span class="token keyword">function</span> <span class="token function">momentumStrategy</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>payload <span class="token operator">></span> previous<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>entered<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      context<span class="token punctuation">.</span><span class="token function">order</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-        identifier<span class="token punctuation">:</span> <span class="token string">'MSFT'</span><span class="token punctuation">,</span>
-        quantity<span class="token punctuation">:</span> <span class="token number">100</span>
-      <span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>entered<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      context<span class="token punctuation">.</span><span class="token function">order</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-        identifier<span class="token punctuation">:</span> <span class="token string">'MSFT'</span><span class="token punctuation">,</span>
-        quantity<span class="token punctuation">:</span> <span class="token operator">-</span><span class="token number">100</span>
-      <span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">magicFormula</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">switch</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">case</span> <span class="token string">'prices'</span><span class="token punctuation">:</span>
+      <span class="token keyword">const</span> current <span class="token operator">=</span> event<span class="token punctuation">.</span>payload<span class="token punctuation">.</span>price
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>current <span class="token operator">></span> previous <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>entered<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">/* upwards momentum: buy! */</span>
+        context<span class="token punctuation">.</span><span class="token function">order</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          identifier<span class="token punctuation">:</span> <span class="token string">'MSFT'</span><span class="token punctuation">,</span>
+          quantity<span class="token punctuation">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+          price<span class="token punctuation">:</span> current
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        entered <span class="token operator">=</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>current <span class="token operator">&lt;=</span> previous <span class="token operator">&amp;&amp;</span> entered<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">/* downwards momentum: sell! */</span>
+        context<span class="token punctuation">.</span><span class="token function">order</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          identifier<span class="token punctuation">:</span> <span class="token string">'MSFT'</span><span class="token punctuation">,</span>
+          quantity<span class="token punctuation">:</span> <span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">,</span>
+          price<span class="token punctuation">:</span> current
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        entered <span class="token operator">=</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+      previous <span class="token operator">=</span> current
+      <span class="token keyword">break</span>
+
+    <span class="token keyword">case</span> <span class="token string">'finished'</span><span class="token punctuation">:</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">metrics</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token keyword">break</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<p>Having implemented the strategy, we call the <code>run</code> function, supplying it with the price data and the magic formula.
+We also set a starting capital for the algorithm to use.</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  feeds<span class="token punctuation">:</span> <span class="token punctuation">{</span> prices <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  strategy<span class="token punctuation">:</span> magicFormula<span class="token punctuation">,</span>
+  startCapital<span class="token punctuation">:</span> <span class="token number">10000</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="Re-evaluating-the-formula"><a href="#Re-evaluating-the-formula" class="headerlink" title="Re-evaluating the formula"></a>Re-evaluating the formula</h2><p>Running the code above produces the following output:</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token punctuation">{</span>
+  alpha<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  beta<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  calmar<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  drawdown<span class="token punctuation">:</span> <span class="token number">0.01</span><span class="token punctuation">,</span>
+  kurtosis<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  omega<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  returns<span class="token punctuation">:</span> <span class="token operator">-</span><span class="token number">0.01</span><span class="token punctuation">,</span>
+  sharpe<span class="token punctuation">:</span> <span class="token operator">-</span><span class="token number">0.37796447300922725</span><span class="token punctuation">,</span>
+  skew<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  sortino<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  stability<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  tail<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  volatility<span class="token punctuation">:</span> <span class="token number">0</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>A whole bunch of words and a whole bunch of numbers. Though, initially the only thing we really care about is the <code>returns</code> key. The number at that key denotes our profit in percents.</p>
+<p>Unfortunately our magic formula wasn’t as magic as we initially might have thought. We actually lost money using it, and would be better off if we had just kept our money safe under a mattress.</p>
+<p><strong>Now, do not throw the code into the bin just yet!</strong></p>
+<p>Our translator friend had apparently made a mistake, we got it all backwards! The actual formula is defined as such: <strong>if a price is lower than the previous price</strong>, then the stock will bounce back up. Furthermore, <strong>if a price is not lower than the previous price</strong>, the stock is in for a movement south.</p>
+<p>We swiftly run back to the keyboard to rewrite the buying and selling criterions.</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span>current <span class="token operator">&lt;</span> previous <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>entered<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">/* send buy order */</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>current <span class="token operator">>=</span> previous <span class="token operator">&amp;&amp;</span> entered<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">/* send sell order */</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Running a new backtest with our updated criterions results in the following metrics:</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token punctuation">{</span>
+  alpha<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  beta<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  calmar<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  drawdown<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  kurtosis<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  omega<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  returns<span class="token punctuation">:</span> <span class="token number">0.2</span><span class="token punctuation">,</span>
+  sharpe<span class="token punctuation">:</span> <span class="token number">0.37796447300922725</span><span class="token punctuation">,</span>
+  skew<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  sortino<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  stability<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  tail<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  volatility<span class="token punctuation">:</span> <span class="token number">0</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The odl dusty PDF was right! We’ve now built a wealth machine with merely 90 lines of code. Running the strategy for merely a week brought us a 20% gain – neat!</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>While finding magic trading formulas on the corners of the internet might seem unlikely, this simple process, from initial idea to metrics, is actually a great way to get started with algorithmic trading. A lot of trading ideas are really simple and intuitive like this.</p>
+<p>Now, get out there and make some money!</p>
 
       
     </div>
