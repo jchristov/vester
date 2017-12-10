@@ -34,29 +34,17 @@
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/prologue/about">About</a>
-              
-            </li>
-          
-            <li class="nav-item">
               <a class="" href="/vester/prologue/quickstart">Quickstart</a>
               
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/prologue/api">API Reference</a>
+              <a class="" href="/vester/prologue/about">About</a>
               
             </li>
           
-        </ul>
-      </li>
-    
-      <li class="nav-item">
-        <span class="nav-heading">Guide</span>
-        <ul class="nav">
-          
             <li class="nav-item">
-              <a class="" href="/vester/guide/introduction">Introduction</a>
+              <a class="" href="/vester/prologue/api">API Reference</a>
               
             </li>
           
@@ -73,37 +61,22 @@
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/buffer">Buffer</a>
+              <a class="active" href="/vester/concepts/notifier">Notifications</a>
               
             </li>
           
             <li class="nav-item">
-              <a class="active" href="/vester/concepts/middleware">Middleware</a>
-              
-                <ul class="nav">
-                  
-                    <li class="nav-item">
-                      <a class="active" href="/vester/concepts/middleware/notifier">Notifier</a>
-                    </li>
-                  
-                    <li class="nav-item">
-                      <a class="" href="/vester/concepts/middleware/journaler">Journaler</a>
-                    </li>
-                  
-                    <li class="nav-item">
-                      <a class="" href="/vester/concepts/middleware/guard">Guard</a>
-                    </li>
-                  
-                    <li class="nav-item">
-                      <a class="" href="/vester/concepts/middleware/broker">Broker</a>
-                    </li>
-                  
-                </ul>
+              <a class="" href="/vester/concepts/journaler">Journaling</a>
               
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/store">Store</a>
+              <a class="" href="/vester/concepts/guard">Guards</a>
+              
+            </li>
+          
+            <li class="nav-item">
+              <a class="" href="/vester/concepts/broker">Broker</a>
               
             </li>
           
@@ -122,7 +95,7 @@
 <main class="main">
   <div class="content">
     <div class="container">
-      <h1 id="Notifier"><a href="#Notifier" class="headerlink" title="Notifier"></a>Notifier</h1><h2 id="Setup-Slack-Notifications"><a href="#Setup-Slack-Notifications" class="headerlink" title="Setup Slack Notifications"></a>Setup Slack Notifications</h2><ol>
+      <h1 id="Notifier"><a href="#Notifier" class="headerlink" title="Notifier"></a>Notifier</h1><h2 id="Slack-Notifications"><a href="#Slack-Notifications" class="headerlink" title="Slack Notifications"></a>Slack Notifications</h2><ol>
 <li>Visit <code>https://&lt;YOUR-WORKSPACE&gt;.slack.com/apps/manage</code></li>
 <li>Search for “Incoming Webhooks”</li>
 <li>Click the “Add Configuration” button</li>
@@ -135,13 +108,13 @@
   <span class="token operator">...</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
-<p>The Notifier middleware will then send a Slack notification each time an event passes through it.</p>
-<h2 id="Backtesting"><a href="#Backtesting" class="headerlink" title="Backtesting"></a>Backtesting</h2><p>This middleware is not active when backtesting, as there is no point in receiving notifications during backtests.</p>
+<p>The Notifier will then send a Slack notification each time an event passes through it.</p>
+<h2 id="Backtesting"><a href="#Backtesting" class="headerlink" title="Backtesting"></a>Backtesting</h2><p>The Notifier is not active when backtesting, as there is no point in receiving notifications during backtests.</p>
 
       
         <footer class="navbar navbar-content">
           <section class="navbar-center">
-            <a href="/vester/concepts/middleware/journaler" class="btn btn-primary">Next</a>
+            <a href="/vester/concepts/journaler" class="btn btn-primary">Next</a>
           </section>
         </footer>
       

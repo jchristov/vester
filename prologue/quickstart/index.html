@@ -34,29 +34,17 @@
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/prologue/about">About</a>
-              
-            </li>
-          
-            <li class="nav-item">
               <a class="active" href="/vester/prologue/quickstart">Quickstart</a>
               
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/prologue/api">API Reference</a>
+              <a class="" href="/vester/prologue/about">About</a>
               
             </li>
           
-        </ul>
-      </li>
-    
-      <li class="nav-item">
-        <span class="nav-heading">Guide</span>
-        <ul class="nav">
-          
             <li class="nav-item">
-              <a class="" href="/vester/guide/introduction">Introduction</a>
+              <a class="" href="/vester/prologue/api">API Reference</a>
               
             </li>
           
@@ -73,37 +61,22 @@
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/buffer">Buffer</a>
+              <a class="" href="/vester/concepts/notifier">Notifications</a>
               
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/middleware">Middleware</a>
-              
-                <ul class="nav">
-                  
-                    <li class="nav-item">
-                      <a class="" href="/vester/concepts/middleware/notifier">Notifier</a>
-                    </li>
-                  
-                    <li class="nav-item">
-                      <a class="" href="/vester/concepts/middleware/journaler">Journaler</a>
-                    </li>
-                  
-                    <li class="nav-item">
-                      <a class="" href="/vester/concepts/middleware/guard">Guard</a>
-                    </li>
-                  
-                    <li class="nav-item">
-                      <a class="" href="/vester/concepts/middleware/broker">Broker</a>
-                    </li>
-                  
-                </ul>
+              <a class="" href="/vester/concepts/journaler">Journaling</a>
               
             </li>
           
             <li class="nav-item">
-              <a class="" href="/vester/concepts/store">Store</a>
+              <a class="" href="/vester/concepts/guard">Guards</a>
+              
+            </li>
+          
+            <li class="nav-item">
+              <a class="" href="/vester/concepts/broker">Broker</a>
               
             </li>
           
@@ -122,8 +95,7 @@
 <main class="main">
   <div class="content">
     <div class="container">
-      <h1 id="Quickstart"><a href="#Quickstart" class="headerlink" title="Quickstart"></a>Quickstart</h1><p>We can visualize Vester as a vintage <a href="https://www.google.com/search?tbm=isch&amp;ei=1N8rWuuJItH7kwWy0oPADw&amp;btnG=S%C3%B6k&amp;q=reel+to+reel+tape+recorder" target="_blank" rel="external">reel-to-reel tape recorder</a>. The left reel contains events, the recorder is our strategy, and the right reel contains all of the trading orders that our strategy comes up with. Below we’ll see how Vester can help us in implementing these trading strategies.</p>
-<h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><p>If Vester is not yet installed, we should start off by doing that.</p>
+      <h1 id="Quickstart"><a href="#Quickstart" class="headerlink" title="Quickstart"></a>Quickstart</h1><h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><p>If Vester is not yet installed, we should start off by doing that.</p>
 <pre class=" language-javascript"><code class="language-javascript">npm install vester
 </code></pre>
 <p>Next, create a file named <code>index.js</code> and start editing. At the top of the file we import the <code>run</code> function from Vester, like so:</p>
@@ -238,6 +210,12 @@ We also set a starting capital for the algorithm to use.</p>
 <h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>While finding magic trading formulas on the corners of the internet might seem unlikely, this simple process, from initial idea to metrics, is actually a great way to get started with algorithmic trading. A lot of trading ideas are really simple and intuitive like this.</p>
 <p>Now, get out there and make some money!</p>
 
+      
+        <footer class="navbar navbar-content">
+          <section class="navbar-center">
+            <a href="/vester/prologue/about" class="btn btn-primary">Next</a>
+          </section>
+        </footer>
       
     </div>
   </div>
