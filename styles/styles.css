@@ -3400,7 +3400,7 @@ h2, h3 {
   margin-top: 2rem; }
 
 h2 {
-  border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 2px solid #e7e9ed;
   padding-bottom: 1rem; }
 
 .lead {
@@ -3408,7 +3408,8 @@ h2 {
 
 :not(pre) > code[class*="language-"], pre[class*="language-"] {
   background: #EEEEEE !important;
-  border: 1px solid #e7e9ed !important; }
+  border: 1px solid #e7e9ed !important;
+  padding: 0.8rem !important; }
   :not(pre) > code[class*="language-"] .token.atrule, :not(pre) > code[class*="language-"] .token.attr-value, :not(pre) > code[class*="language-"] .token.keyword, pre[class*="language-"] .token.atrule, pre[class*="language-"] .token.attr-value, pre[class*="language-"] .token.keyword {
     color: #1563FF; }
 
@@ -3524,14 +3525,17 @@ body {
   font-size: 1.6rem;
   margin-right: .8rem; }
 
-.tile-title {
+.tile-card .tile-title {
   text-transform: uppercase;
   font-weight: 600;
-  letter-spacing: .05em; }
+  letter-spacing: .05em;
+  margin-bottom: 0.8rem; }
 
 .tile-subtitle {
-  margin-top: .4rem;
   font-size: .75rem;
+  margin-bottom: 0; }
+
+.tile-card .tile-subtitle {
   opacity: .75; }
 
 .tile.tile-centered .tile-title, .tile.tile-centered .tile-subtitle {
@@ -3564,3 +3568,18 @@ body {
   margin-top: 1rem;
   padding-top: 1rem;
   justify-content: center; }
+
+.tile-note {
+  background: #EEEEEE;
+  border: 1px solid #e7e9ed;
+  margin: 1rem 0;
+  padding: 0.8rem;
+  border-left: 2px solid #ffb700; }
+
+.tile-outside {
+  position: relative; }
+
+.tile-outside .tile-icon {
+  position: absolute;
+  left: -2rem;
+  color: #ffb700; }

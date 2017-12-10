@@ -95,7 +95,16 @@
 <main class="main">
   <div class="content">
     <div class="container">
-      <h1 id="Notifier"><a href="#Notifier" class="headerlink" title="Notifier"></a>Notifier</h1><h2 id="Slack-Notifications"><a href="#Slack-Notifications" class="headerlink" title="Slack Notifications"></a>Slack Notifications</h2><ol>
+      <h1 id="Notifier"><a href="#Notifier" class="headerlink" title="Notifier"></a>Notifier</h1><div class="tile tile-centered tile-note tile-outside">
+  <div class="tile-icon">
+    <i class="icon icon-alert-triangle"></i>
+  </div>
+  <div class="tile-content">
+    <p class="tile-subtitle">This module is <strong>not active</strong> when backtesting, since there is no point in receiving notifications.</p>
+  </div>
+</div>
+
+<h2 id="Slack-Notifications"><a href="#Slack-Notifications" class="headerlink" title="Slack Notifications"></a>Slack Notifications</h2><ol>
 <li>Visit <code>https://&lt;YOUR-WORKSPACE&gt;.slack.com/apps/manage</code></li>
 <li>Search for “Incoming Webhooks”</li>
 <li>Click the “Add Configuration” button</li>
@@ -109,7 +118,6 @@
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
 <p>The Notifier will then send a Slack notification each time an event passes through it.</p>
-<h2 id="Backtesting"><a href="#Backtesting" class="headerlink" title="Backtesting"></a>Backtesting</h2><p>The Notifier is not active when backtesting, as there is no point in receiving notifications during backtests.</p>
 
       
         <footer class="navbar navbar-content">

@@ -97,13 +97,37 @@
     <div class="container">
       <h1 id="Feeds"><a href="#Feeds" class="headerlink" title="Feeds"></a>Feeds</h1><p>One of the most fundamental concepts in Vester is that all strategies are simple functions that
 react to events. The events come from Feeds, which are supplied by the user of the framework (you).</p>
+<div class="tile tile-centered tile-note tile-outside">
+  <div class="tile-icon">
+    <i class="icon icon-alert-triangle"></i>
+  </div>
+  <div class="tile-content">
+    <p class="tile-subtitle">All events <strong>must contain a timestamp property</strong> containing a valid unix timestamp in milliseconds. If the timestamp property is missing, Vester will skip processing that event.</p>
+  </div>
+</div>
+
 <p>A Feed can be just about any kind of iterable sequence, such as Array, Stream, Generator, Promise, EventEmitter, Iterator, Iterable, and so on. Check <a href="http://highlandjs.org/#_(source)" target="_blank">this page</a> for a full reference. </p>
 <p>Below are some examples of valid feeds:</p>
 <pre class=" language-javascript"><code class="language-javascript"><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   feeds<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    sentimentData<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">0.55</span><span class="token punctuation">,</span> <span class="token number">0.6</span><span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">]</span><span class="token punctuation">,</span>      <span class="token comment" spellcheck="true">/* Array */</span>
-    myPromise<span class="token punctuation">:</span> <span class="token function">request</span><span class="token punctuation">(</span><span class="token string">'https://...'</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true">/* Promise */</span>
-    dataStream<span class="token punctuation">:</span> fs<span class="token punctuation">.</span><span class="token function">createReadStream</span><span class="token punctuation">(</span><span class="token operator">...</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">/* Stream */</span>
+
+    <span class="token comment" spellcheck="true">/* promise */</span>
+    myPromise<span class="token punctuation">:</span> <span class="token function">request</span><span class="token punctuation">(</span><span class="token string">'https://...'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+    <span class="token comment" spellcheck="true">/* stream */</span>
+    dataStream<span class="token punctuation">:</span> fs<span class="token punctuation">.</span><span class="token function">createReadStream</span><span class="token punctuation">(</span><span class="token operator">...</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+    <span class="token comment" spellcheck="true">/* array */</span>
+    sentimentData<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        sentiment<span class="token punctuation">:</span> <span class="token number">0.55</span><span class="token punctuation">,</span>
+        timestamp<span class="token punctuation">:</span> <span class="token number">9466848000000</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        sentiment<span class="token punctuation">:</span> <span class="token number">0.6</span><span class="token punctuation">,</span>
+        timestamp<span class="token punctuation">:</span> <span class="token number">9467712000000</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span>
     <span class="token operator">...</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token operator">...</span>

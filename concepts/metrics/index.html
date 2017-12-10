@@ -66,7 +66,7 @@
             </li>
           
             <li class="nav-item">
-              <a class="active" href="/vester/concepts/journaler">Journaling</a>
+              <a class="" href="/vester/concepts/journaler">Journaling</a>
               
             </li>
           
@@ -95,30 +95,13 @@
 <main class="main">
   <div class="content">
     <div class="container">
-      <h1 id="Journaler"><a href="#Journaler" class="headerlink" title="Journaler"></a>Journaler</h1><p>The Journaler middleware writes the state after each event to a persistent storage. This makes it possible to hydrate the state after a crash or shutdown.</p>
-<div class="tile tile-centered tile-note tile-outside">
-  <div class="tile-icon">
-    <i class="icon icon-alert-triangle"></i>
-  </div>
-  <div class="tile-content">
-    <p class="tile-subtitle">This module is <strong>not active</strong> when backtesting, since rehydrating the store between backtests is pointless.</p>
-  </div>
-</div>
+      <h1 id="Strategy"><a href="#Strategy" class="headerlink" title="Strategy"></a>Strategy</h1><p>As described in the <a href="/vester/concepts/feeds">Feed chapter</a>, strategies are simple functions that
+react to events. the Strategy function is called with two arguments: <code>context</code> and <code>event</code>.</p>
+<h2 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h2><h3 id="State"><a href="#State" class="headerlink" title="State"></a>State</h3><p>The current state of your portfolio can be accessed at <code>context.state()</code>.</p>
+<h3 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h3><p>Your portfolio risk metrics can be found at <code>context.metrics()</code>.</p>
+<h3 id="Order-and-Cancel"><a href="#Order-and-Cancel" class="headerlink" title="Order and Cancel"></a>Order and Cancel</h3><p>Call <code>order(config)</code> to place and order, or <code>cancel(id)</code> to cancel an order. The <code>order</code> function expects an object containing an <code>identifier</code>, a <code>quantity</code> and (optionally) a <code>price</code>. The <code>cancel</code> function expects a string denoting the ID of the order which to cancel.</p>
+<h2 id="Event"><a href="#Event" class="headerlink" title="Event"></a>Event</h2><p>The event object consists of two properties: <code>type</code> and <code>payload</code>. See <a href="/vester/prologue/api">API References</a> for a full list of event types.</p>
 
-<p>By default the journal file is stored as <code>journal.json</code> in the working directory, but you can change this by setting the <code>journal</code> property in your configuration.</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-  <span class="token operator">...</span><span class="token punctuation">,</span>
-  journal<span class="token punctuation">:</span> <span class="token string">'/var/log/journal.json'</span><span class="token punctuation">,</span>
-  <span class="token operator">...</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span>
-</code></pre>
-
-      
-        <footer class="navbar navbar-content">
-          <section class="navbar-center">
-            <a href="/vester/concepts/guard" class="btn btn-primary">Next</a>
-          </section>
-        </footer>
       
     </div>
   </div>
